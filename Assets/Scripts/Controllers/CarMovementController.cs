@@ -4,19 +4,18 @@ using System.Collections;
 
 public class CarMovementController : MonoBehaviour
 {
+    public static Action<float> OnSpeedValue;
+    public static Action<bool> OnSpeedIncreased;
+    public static Action OnObstacleBumped;
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float acceleration = 2f;
     [SerializeField] private float maxSpeed = 15f;
     [SerializeField] private float steerTurnSpeed = 50f;
     [SerializeField] private float steerDirectionValue = 1f;
 
-    private bool isLeftButtonPressed;
-    private bool isRightButtonPressed;
+    private bool isSteerButtonPressed;
     private bool canMove = false;
-
-    public static Action<float> OnSpeedValue;
-    public static Action<bool> OnSpeedIncreased;
-    public static Action OnObstacleBumped;
 
     private void Awake()
     {
@@ -25,7 +24,7 @@ public class CarMovementController : MonoBehaviour
         MenuButtons.OnCanMove += CanMoveMethod;
     }
 
-    void Update()
+    private void Update()
     {
         OnSpeedValue?.Invoke(speed);
 
@@ -45,12 +44,7 @@ public class CarMovementController : MonoBehaviour
         speed += acceleration * Time.deltaTime;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        if (isLeftButtonPressed)
-        {
-            transform.Rotate(0f, -steerDirectionValue * steerTurnSpeed * Time.deltaTime, 0f);
-        }
-
-        if (isRightButtonPressed)
+        if(isSteerButtonPressed)
         {
             transform.Rotate(0f, steerDirectionValue * steerTurnSpeed * Time.deltaTime, 0f);
         }
@@ -58,12 +52,13 @@ public class CarMovementController : MonoBehaviour
 
     private void SteerLeft(bool flag)
     {
-        isLeftButtonPressed = flag;
+        steerDirectionValue = -steerDirectionValue;
+        isSteerButtonPressed = flag;
     }
 
     private void SteerRight(bool flag)
     {
-        isRightButtonPressed = flag;
+        isSteerButtonPressed = flag;
     }
 
     private void CanMoveMethod(bool flag)
@@ -76,8 +71,7 @@ public class CarMovementController : MonoBehaviour
         switch (other.tag)
         {
             case "Obstacle":
-                //OnObstacleBumped?.Invoke();
-                print("Bumped");
+                OnObstacleBumped?.Invoke();
                 break;
             case "SpeedIncrease":
                 OnSpeedIncreased?.Invoke(true);
@@ -90,7 +84,7 @@ public class CarMovementController : MonoBehaviour
         }
     }
 
-    IEnumerator IncreaseMaxSpeedSteerValue()
+    private IEnumerator IncreaseMaxSpeedSteerValue()
     {
         yield return new WaitForSeconds(1f);
         maxSpeed += 5f;
@@ -98,7 +92,7 @@ public class CarMovementController : MonoBehaviour
         steerTurnSpeed += 10f;
     }
 
-    IEnumerator ReduceMaxSpeedSteerValue()
+    private IEnumerator ReduceMaxSpeedSteerValue()
     {
         yield return new WaitForSeconds(1f);
         speed -= 2.5f;
@@ -113,4 +107,3 @@ public class CarMovementController : MonoBehaviour
         MenuButtons.OnCanMove -= CanMoveMethod;
     }
 }
-

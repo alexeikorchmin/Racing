@@ -3,16 +3,15 @@ using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
+    public const string BestScoreKey = "Best Score:";
+
     [SerializeField] private TMP_Text currentScoreText;
     [SerializeField] private TMP_Text carSpeedText;
     [SerializeField] private TMP_Text CurrentScoreResultText;
 
-    public const string BestScoreKey = "Best Score:";
-
     private float scorePoints;
     private float carSpeedScoreMultiplier;
     private bool gameIsPlayed = false;
-
 
     private void Awake()
     {

@@ -32,7 +32,9 @@ public class SoundManagerLocal : MonoBehaviour
             audioSource.Pause();
         }
         else
+        {
             audioSource.Play();
+        }
     }
 
     private void OnDestroy()

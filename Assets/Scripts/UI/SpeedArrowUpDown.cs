@@ -28,7 +28,7 @@ public class SpeedArrowUpDown : MonoBehaviour
         StartCoroutine(Fade());
     }
 
-    IEnumerator Fade()
+    private IEnumerator Fade()
     {
         for (float i = 1f; i >= 0; i -= 0.2f)
         {

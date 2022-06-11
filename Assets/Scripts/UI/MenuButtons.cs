@@ -5,6 +5,8 @@ using System;
 
 public class MenuButtons : MonoBehaviour
 {
+    public static Action<bool> OnCanMove;
+
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button pauseButton;
@@ -13,17 +15,11 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
 
-    public static Action<bool> OnCanMove;
-
     private void Awake()
     {
         CarMovementController.OnObstacleBumped += WhenCarBumpedMenu;
 
-        playModeCanvas.enabled = false;
-
-        //PauseGame();
-        playAgainButton.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(true);
+        Init();
 
         playButton.onClick.AddListener(PlayGame);
         exitButton.onClick.AddListener(ExitGame);
@@ -35,7 +31,6 @@ public class MenuButtons : MonoBehaviour
     {
         menuCanvas.enabled = false;
         playModeCanvas.enabled = true;
-        //Time.timeScale = 1f;
         OnCanMove?.Invoke(true);
     }
 
@@ -47,7 +42,6 @@ public class MenuButtons : MonoBehaviour
 
     private void PauseGame()
     {
-        //Time.timeScale = 0f;
         menuCanvas.enabled = true;
         playAgainButton.gameObject.SetActive(true);
         OnCanMove?.Invoke(false);
@@ -62,6 +56,13 @@ public class MenuButtons : MonoBehaviour
     {
         PauseGame();
         playButton.gameObject.SetActive(false);
+    }
+
+    private void Init()
+    {
+        playModeCanvas.enabled = false;
+        playAgainButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(true);
     }
 
     private void OnDestroy()

@@ -3,12 +3,12 @@ using System;
 
 public class DistanceFromCamera : MonoBehaviour
 {
+    public static Action<bool> OnCloseDistance;
+
     [SerializeField] private GameObject cameraObject;
     [SerializeField] private float distance = 100f;
 
-    public static Action<bool> OnCloseDistance;
-
-    void Update()
+    private void Update()
     {
         CheckTheDistance();
     }
@@ -20,6 +20,8 @@ public class DistanceFromCamera : MonoBehaviour
             OnCloseDistance?.Invoke(true);
         }
         else
+        {
             OnCloseDistance?.Invoke(false);
+        }
     }    
 }

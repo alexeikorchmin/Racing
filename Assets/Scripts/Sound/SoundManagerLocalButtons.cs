@@ -7,6 +7,8 @@ public class SoundManagerLocalButtons : SoundManagerLocal
     private float timer = 0f;
     private bool isButtonPressed = false;
 
+    protected override void GameIsPlayed(bool flag) { }
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,8 +38,6 @@ public class SoundManagerLocalButtons : SoundManagerLocal
             timer = 0f;
         }
     }
-
-    protected override void GameIsPlayed(bool flag) { }
 
     private void OnDestroy()
     {

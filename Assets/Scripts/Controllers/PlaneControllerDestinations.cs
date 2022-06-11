@@ -19,7 +19,7 @@ public class PlaneControllerDestinations : MonoBehaviour
         MenuButtons.OnCanMove += CanMoveMethod;
     }
 
-    void Update()
+    private void Update()
     {
         if (canMove)
         {
@@ -27,18 +27,20 @@ public class PlaneControllerDestinations : MonoBehaviour
 
             FlyToDestination();
 
-            if (transform.position == destinationGoals[currentGoalIndex].position)
-            {
-                elapsedTime = 0;
-                currentGoalIndex = ++currentGoalIndex;
+            SetNextDestinationGoal();
 
-                SetStartingPosition();
+            //if (transform.position == destinationGoals[currentGoalIndex].position)
+            //{
+            //    elapsedTime = 0;
+            //    currentGoalIndex = ++currentGoalIndex;
 
-                if (currentGoalIndex == destinationGoals.Length)
-                {
-                    currentGoalIndex = 0;
-                }
-            }
+            //    SetStartingPosition();
+
+            //    if (currentGoalIndex == destinationGoals.Length)
+            //    {
+            //        currentGoalIndex = 0;
+            //    }
+            //}
         }
     }
 
@@ -51,6 +53,22 @@ public class PlaneControllerDestinations : MonoBehaviour
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+    }
+
+    private void SetNextDestinationGoal()
+    {
+        if (transform.position == destinationGoals[currentGoalIndex].position)
+        {
+            elapsedTime = 0;
+            currentGoalIndex = ++currentGoalIndex;
+
+            SetStartingPosition();
+
+            if (currentGoalIndex == destinationGoals.Length)
+            {
+                currentGoalIndex = 0;
+            }
+        }
     }
 
     private void FlyToDestination()

@@ -4055,7 +4055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1387003218896046111, guid: d69fb8c5c8902764bad38acb614a490b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5362008426008538100, guid: d69fb8c5c8902764bad38acb614a490b, type: 3}
       propertyPath: m_Pivot.x
@@ -39816,7 +39816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1387003218896046111, guid: d69fb8c5c8902764bad38acb614a490b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5362008426008538100, guid: d69fb8c5c8902764bad38acb614a490b, type: 3}
       propertyPath: m_Pivot.x
@@ -40760,7 +40760,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.098537646, y: 0.000000030570025, z: -0.0000000030270297, w: 0.99513334}
+  m_LocalRotation: {x: 0.09853762, y: -3.800031e-15, z: 2.2263385e-16, w: 0.99513334}
   m_LocalPosition: {x: 0, y: 2.5, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -70911,7 +70911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1709805709}
   m_Layer: 0
-  m_Name: SpeedReducers
+  m_Name: SpeedReduceTargets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75551,7 +75551,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808545690}
-  m_LocalRotation: {x: 0.098537646, y: 0.000000030570025, z: -0.0000000030270297, w: 0.99513334}
+  m_LocalRotation: {x: 0.09853762, y: -3.800031e-15, z: 2.2263385e-16, w: 0.99513334}
   m_LocalPosition: {x: 0, y: 2.5, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -37,5 +37,6 @@ public class ReduceVolumeOnCloseDistance : MonoBehaviour
     private void OnDestroy()
     {
         DistanceFromCamera.OnCloseDistance -= ReduceVolume;
+        SoundManagerGlobal.OnSoundValueChanged -= SoundValue;
     }
 }
