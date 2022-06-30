@@ -36,8 +36,7 @@ public class MenuButtons : MonoBehaviour
 
     private void ExitGame()
     {
-        print("Good Bye");
-        //Application.Quit();
+        Application.Quit();
     }
 
     private void PauseGame()
