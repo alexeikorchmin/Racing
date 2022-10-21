@@ -12,17 +12,17 @@ public class ReduceVolumeOnCloseDistance : MonoBehaviour
         NonReducedVolume = audioSource.volume;
         reducedVolume = NonReducedVolume / 5;
 
-        DistanceFromCamera.OnCloseDistance += ReduceVolume;
-        SoundManagerGlobal.OnSoundValueChanged += SoundValue;
+        DistanceFromCamera.OnCloseDistance += OnCloseDistanceHandler;
+        SoundManagerGlobal.OnSoundValueChanged += OnSoundValueChangedHandler;
     }
 
-    private void SoundValue(float soundValue)
+    private void OnSoundValueChangedHandler(float soundValue)
     {
         NonReducedVolume = soundValue;
         reducedVolume = NonReducedVolume / 5;
     }
 
-    private void ReduceVolume(bool flag)
+    private void OnCloseDistanceHandler(bool flag)
     {
         if (flag)
         {
@@ -36,7 +36,7 @@ public class ReduceVolumeOnCloseDistance : MonoBehaviour
 
     private void OnDestroy()
     {
-        DistanceFromCamera.OnCloseDistance -= ReduceVolume;
-        SoundManagerGlobal.OnSoundValueChanged -= SoundValue;
+        DistanceFromCamera.OnCloseDistance -= OnCloseDistanceHandler;
+        SoundManagerGlobal.OnSoundValueChanged -= OnSoundValueChangedHandler;
     }
 }

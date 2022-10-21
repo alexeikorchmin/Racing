@@ -10,22 +10,22 @@ public class SoundManagerLocal : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        SoundManagerGlobal.OnSoundOnOff += SetSoundOnOff;
-        SoundManagerGlobal.OnSoundValueChanged += SetSoundValue;
-        MenuButtons.OnCanMove += GameIsPlayed;
+        SoundManagerGlobal.OnSoundOnOff += OnSoundOnOffHandler;
+        SoundManagerGlobal.OnSoundValueChanged += OnSoundValueChangedHandler;
+        MenuButtons.OnCanMove += OnCanMoveHandler;
     }
 
-    protected void SetSoundOnOff(bool flag)
+    protected void OnSoundOnOffHandler(bool flag)
     {
         audioSource.mute = !flag;
     }
 
-    protected void SetSoundValue(float soundValue)
+    protected void OnSoundValueChangedHandler(float soundValue)
     {
         audioSource.volume = soundValue;
     }
 
-    protected virtual void GameIsPlayed(bool flag)
+    protected virtual void OnCanMoveHandler(bool flag)
     {
         if (!flag)
         {
@@ -39,8 +39,8 @@ public class SoundManagerLocal : MonoBehaviour
 
     private void OnDestroy()
     {
-        SoundManagerGlobal.OnSoundOnOff -= SetSoundOnOff;
-        SoundManagerGlobal.OnSoundValueChanged -= SetSoundValue;
-        MenuButtons.OnCanMove -= GameIsPlayed;
+        SoundManagerGlobal.OnSoundOnOff -= OnSoundOnOffHandler;
+        SoundManagerGlobal.OnSoundValueChanged -= OnSoundValueChangedHandler;
+        MenuButtons.OnCanMove -= OnCanMoveHandler;
     }
 }

@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -11,20 +11,30 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button playAgainButton;
+    [SerializeField] private Button continueButton;
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
 
     private void Awake()
     {
-        CarMovementController.OnObstacleBumped += WhenCarBumpedMenu;
-
+        CarMovementController.OnObstacleBumped += OnObstacleBumpedHandler;
+        AdManager.OnAdFinished += OnAdFinishedHandler;
         Init();
 
         playButton.onClick.AddListener(PlayGame);
         exitButton.onClick.AddListener(ExitGame);
         pauseButton.onClick.AddListener(PauseGame);
         playAgainButton.onClick.AddListener(PlayAgain);
+        continueButton.onClick.AddListener(ContinueGame);
+    }
+
+    private void Init()
+    {
+        playModeCanvas.enabled = false;
+        continueButton.gameObject.SetActive(false);
+        playAgainButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(true);
     }
 
     private void PlayGame()
@@ -51,21 +61,27 @@ public class MenuButtons : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void WhenCarBumpedMenu()
+    private void ContinueGame()
+    {
+        AdManager.Instance.ShowAd();
+        continueButton.interactable = false;
+    }
+
+    private void OnObstacleBumpedHandler()
     {
         PauseGame();
         playButton.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(true);
     }
 
-    private void Init()
+    private void OnAdFinishedHandler()
     {
-        playModeCanvas.enabled = false;
-        playAgainButton.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(true);
+        PlayGame();
     }
 
     private void OnDestroy()
     {
-        CarMovementController.OnObstacleBumped -= WhenCarBumpedMenu;
+        CarMovementController.OnObstacleBumped -= OnObstacleBumpedHandler;
+        AdManager.OnAdFinished -= OnAdFinishedHandler;
     }
 }

@@ -7,13 +7,13 @@ public class SoundManagerLocalButtons : SoundManagerLocal
     private float timer = 0f;
     private bool isButtonPressed = false;
 
-    protected override void GameIsPlayed(bool flag) { }
+    protected override void OnCanMoveHandler(bool flag) { }
 
     protected override void Awake()
     {
         base.Awake();
-        SteerLeftController.OnLeftButtonPressed += PlayOnClickDown;
-        SteerRightController.OnRightButtonPressed += PlayOnClickDown;
+        SteerLeftController.OnLeftButtonPressed += OnSteerButtonPressedHandler;
+        SteerRightController.OnRightButtonPressed += OnSteerButtonPressedHandler;
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
         }
     }
 
-    private void PlayOnClickDown(bool flag)
+    private void OnSteerButtonPressedHandler(bool flag)
     {
         isButtonPressed = flag;
 
@@ -41,7 +41,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
 
     private void OnDestroy()
     {
-        SteerLeftController.OnLeftButtonPressed -= PlayOnClickDown;
-        SteerRightController.OnRightButtonPressed -= PlayOnClickDown;
+        SteerLeftController.OnLeftButtonPressed -= OnSteerButtonPressedHandler;
+        SteerRightController.OnRightButtonPressed -= OnSteerButtonPressedHandler;
     }
 }
