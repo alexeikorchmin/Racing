@@ -16,7 +16,7 @@ public class PlaneControllerDestinations : MonoBehaviour
     private void Awake()
     {
         SetStartingPosition();
-        MenuButtons.OnCanMove += CanMoveMethod;
+        GameManager.OnCanMove += CanMoveMethod;
     }
 
     private void Update()
@@ -82,6 +82,6 @@ public class PlaneControllerDestinations : MonoBehaviour
 
     private void OnDestroy()
     {
-        MenuButtons.OnCanMove -= CanMoveMethod;
+        GameManager.OnCanMove -= CanMoveMethod;
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MenuButtons : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Action<bool> OnCanMove;
+    public static event Action<bool> OnCanMove;
 
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
@@ -15,6 +15,7 @@ public class MenuButtons : MonoBehaviour
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
+    [SerializeField] private EnergySystem energyManager;
 
     private void Awake()
     {
@@ -39,6 +40,8 @@ public class MenuButtons : MonoBehaviour
 
     private void PlayGame()
     {
+        if (!energyManager.CheckIsEnoughEnergy()) { return; }
+
         menuCanvas.enabled = false;
         playModeCanvas.enabled = true;
         OnCanMove?.Invoke(true);

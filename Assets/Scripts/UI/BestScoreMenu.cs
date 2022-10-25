@@ -7,8 +7,7 @@ public class BestScoreMenu : MonoBehaviour
 
     private void Start()
     {
-        int bestScore = PlayerPrefs.GetInt(ScoreSystem.BestScoreKey, 0);
-
-        BestScoreText.text = $"{ScoreSystem.BestScoreKey} {bestScore}";
+        int bestScore = SavingSystem.GetBestScore();
+        BestScoreText.text = $"Best Score: {bestScore}";
     }
 }

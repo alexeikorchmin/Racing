@@ -3,13 +3,11 @@ using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
-    public const string BestScoreKey = "Best Score:";
-
     [SerializeField] private TMP_Text currentScoreText;
     [SerializeField] private TMP_Text carSpeedText;
-    [SerializeField] private TMP_Text CurrentScoreResultText;
+    [SerializeField] private TMP_Text currentScoreResultText;
 
-    private float scorePoints;
+    private float currentScorePoints;
     private float carSpeedScoreMultiplier;
     private bool gameIsPlayed = false;
 
@@ -17,7 +15,7 @@ public class ScoreSystem : MonoBehaviour
     {
         CarMovementController.OnSpeedValue += GetCarSpeed;
         CarMovementController.OnObstacleBumped += ShowCurrentScoreResult;
-        MenuButtons.OnCanMove += gameIsPlayedMethod;
+        GameManager.OnCanMove += OnCanMoveHandler;
     }
 
     private void Update()
@@ -30,8 +28,8 @@ public class ScoreSystem : MonoBehaviour
 
     private void ShowScoreAndSpeed()
     {
-        scorePoints += Time.deltaTime;
-        currentScoreText.text = $"Score: {Mathf.FloorToInt(scorePoints).ToString()}";
+        currentScorePoints += Time.deltaTime;
+        currentScoreText.text = $"Score: {Mathf.FloorToInt(currentScorePoints).ToString()}";
         carSpeedText.text = $"{Mathf.FloorToInt(carSpeedScoreMultiplier * 3).ToString()} km/h";
     }
 
@@ -42,25 +40,30 @@ public class ScoreSystem : MonoBehaviour
 
     private void ShowCurrentScoreResult()
     {
-        CurrentScoreResultText.text = $"Current Score: {Mathf.FloorToInt(scorePoints).ToString()}";
+        currentScoreResultText.text = $"Current Score: {Mathf.FloorToInt(currentScorePoints).ToString()}";
     }
 
-    private void gameIsPlayedMethod(bool flag)
+    private void OnCanMoveHandler(bool canMove)
     {
-        gameIsPlayed = flag;
+        gameIsPlayed = canMove;
+
+        if (!canMove)
+        {
+            ShowCurrentScoreResult();
+        }
     }
 
     private void OnDestroy()
     {
         CarMovementController.OnSpeedValue -= GetCarSpeed;
         CarMovementController.OnObstacleBumped -= ShowCurrentScoreResult;
-        MenuButtons.OnCanMove -= gameIsPlayedMethod;
+        GameManager.OnCanMove -= OnCanMoveHandler;
 
-        int currentBestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
+        int currentBestScore = SavingSystem.GetBestScore();
 
-        if (scorePoints > currentBestScore)
+        if (currentScorePoints > currentBestScore)
         {
-            PlayerPrefs.SetInt(BestScoreKey, Mathf.FloorToInt(scorePoints));
+            SavingSystem.SetBestScore(Mathf.FloorToInt(currentScorePoints));
         }
     }
 }

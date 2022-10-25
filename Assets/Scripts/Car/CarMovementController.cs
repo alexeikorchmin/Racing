@@ -20,7 +20,7 @@ public class CarMovementController : MonoBehaviour
     private void Awake()
     {
         SteerController.OnSteerButtonPressed += OnSteerButtonPressedHandler;
-        MenuButtons.OnCanMove += CanMoveMethod;
+        GameManager.OnCanMove += CanMoveMethod;
     }
 
     private void Update()
@@ -90,6 +90,6 @@ public class CarMovementController : MonoBehaviour
     private void OnDestroy()
     {
         SteerController.OnSteerButtonPressed -= OnSteerButtonPressedHandler;
-        MenuButtons.OnCanMove -= CanMoveMethod;
+        GameManager.OnCanMove -= CanMoveMethod;
     }
 }

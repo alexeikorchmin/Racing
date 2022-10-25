@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
-public class SpeedArrowController : MonoBehaviour
+public class SpeedArrowShower : MonoBehaviour
 {
     private Quaternion startRotation;
     private float timeDelay = 1f;

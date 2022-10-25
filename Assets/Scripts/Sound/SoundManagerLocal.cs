@@ -12,7 +12,7 @@ public class SoundManagerLocal : MonoBehaviour
 
         SoundManagerGlobal.OnSoundOnOff += OnSoundOnOffHandler;
         SoundManagerGlobal.OnSoundValueChanged += OnSoundValueChangedHandler;
-        MenuButtons.OnCanMove += OnCanMoveHandler;
+        GameManager.OnCanMove += OnCanMoveHandler;
     }
 
     protected void OnSoundOnOffHandler(bool flag)
@@ -41,6 +41,6 @@ public class SoundManagerLocal : MonoBehaviour
     {
         SoundManagerGlobal.OnSoundOnOff -= OnSoundOnOffHandler;
         SoundManagerGlobal.OnSoundValueChanged -= OnSoundValueChangedHandler;
-        MenuButtons.OnCanMove -= OnCanMoveHandler;
+        GameManager.OnCanMove -= OnCanMoveHandler;
     }
 }
