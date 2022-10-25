@@ -19,8 +19,7 @@ public class CarMovementController : MonoBehaviour
 
     private void Awake()
     {
-        SteerLeftController.OnLeftButtonPressed += SteerLeft;
-        SteerRightController.OnRightButtonPressed += SteerRight;
+        SteerController.OnSteerButtonPressed += OnSteerButtonPressedHandler;
         MenuButtons.OnCanMove += CanMoveMethod;
     }
 
@@ -30,35 +29,31 @@ public class CarMovementController : MonoBehaviour
 
         if (canMove)
         {
-            CarGoes();
+            MoveCar();
         }
     }
 
-    private void CarGoes()
+    private void MoveCar()
     {
         if (speed >= maxSpeed)
         {
             acceleration = 0f;
+            speed = maxSpeed;
         }
 
         speed += acceleration * Time.deltaTime;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        if(isSteerButtonPressed)
+        if (isSteerButtonPressed)
         {
             transform.Rotate(0f, steerDirectionValue * steerTurnSpeed * Time.deltaTime, 0f);
         }
     }
 
-    private void SteerLeft(bool flag)
+    public void OnSteerButtonPressedHandler(bool isButtonPressed, float steerDirection)
     {
-        steerDirectionValue = -steerDirectionValue;
-        isSteerButtonPressed = flag;
-    }
-
-    private void SteerRight(bool flag)
-    {
-        isSteerButtonPressed = flag;
+        isSteerButtonPressed = isButtonPressed;
+        steerDirectionValue = steerDirection;
     }
 
     private void CanMoveMethod(bool flag)
@@ -75,35 +70,26 @@ public class CarMovementController : MonoBehaviour
                 break;
             case "SpeedIncrease":
                 OnSpeedIncreased?.Invoke(true);
-                StartCoroutine(IncreaseMaxSpeedSteerValue());
+                StartCoroutine(SetCarMovementValues(5f, 2f, 10f));
                 break;
             case "SpeedReduce":
                 OnSpeedIncreased?.Invoke(false);
-                StartCoroutine(ReduceMaxSpeedSteerValue());
+                StartCoroutine(SetCarMovementValues(-2.5f, 0f, -10f));
                 break;
         }
     }
 
-    private IEnumerator IncreaseMaxSpeedSteerValue()
+    private IEnumerator SetCarMovementValues(float addMaxSpeed, float Acceleration, float addSteerTurnSpeed)
     {
         yield return new WaitForSeconds(1f);
-        maxSpeed += 5f;
-        acceleration = 2f;
-        steerTurnSpeed += 10f;
-    }
-
-    private IEnumerator ReduceMaxSpeedSteerValue()
-    {
-        yield return new WaitForSeconds(1f);
-        speed -= 2.5f;
-        acceleration = 0f;
-        steerTurnSpeed -= 10f;
+        maxSpeed += addMaxSpeed;
+        acceleration = Acceleration;
+        steerTurnSpeed += addSteerTurnSpeed;
     }
 
     private void OnDestroy()
     {
-        SteerLeftController.OnLeftButtonPressed -= SteerLeft;
-        SteerRightController.OnRightButtonPressed -= SteerRight;
+        SteerController.OnSteerButtonPressed -= OnSteerButtonPressedHandler;
         MenuButtons.OnCanMove -= CanMoveMethod;
     }
 }

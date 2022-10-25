@@ -12,8 +12,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
     protected override void Awake()
     {
         base.Awake();
-        SteerLeftController.OnLeftButtonPressed += OnSteerButtonPressedHandler;
-        SteerRightController.OnRightButtonPressed += OnSteerButtonPressedHandler;
+        SteerController.OnSteerButtonPressed += OnSteerButtonPressedHandler;
     }
 
     private void Update()
@@ -29,7 +28,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
         }
     }
 
-    private void OnSteerButtonPressedHandler(bool flag)
+    private void OnSteerButtonPressedHandler(bool flag, float steerValue)
     {
         isButtonPressed = flag;
 
@@ -41,7 +40,6 @@ public class SoundManagerLocalButtons : SoundManagerLocal
 
     private void OnDestroy()
     {
-        SteerLeftController.OnLeftButtonPressed -= OnSteerButtonPressedHandler;
-        SteerRightController.OnRightButtonPressed -= OnSteerButtonPressedHandler;
+        SteerController.OnSteerButtonPressed -= OnSteerButtonPressedHandler;
     }
 }

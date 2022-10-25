@@ -2,18 +2,22 @@ using UnityEngine;
 
 public class ReduceVolumeOnCloseDistance : MonoBehaviour
 {
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSourceToReduce;
+
     private float NonReducedVolume;
     private float reducedVolume;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        NonReducedVolume = audioSource.volume;
-        reducedVolume = NonReducedVolume / 5;
-
         DistanceFromCamera.OnCloseDistance += OnCloseDistanceHandler;
         SoundManagerGlobal.OnSoundValueChanged += OnSoundValueChangedHandler;
+        Init();
+    }
+
+    private void Init()
+    {
+        NonReducedVolume = audioSourceToReduce.volume;
+        reducedVolume = NonReducedVolume / 5;
     }
 
     private void OnSoundValueChangedHandler(float soundValue)
@@ -26,11 +30,11 @@ public class ReduceVolumeOnCloseDistance : MonoBehaviour
     {
         if (flag)
         {
-            audioSource.volume = reducedVolume;
+            audioSourceToReduce.volume = reducedVolume;
         }
         else
         {
-            audioSource.volume = NonReducedVolume;
+            audioSourceToReduce.volume = NonReducedVolume;
         }
     }
 
