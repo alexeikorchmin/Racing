@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button playAgainButton;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button watchVideoButton;
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
@@ -28,23 +29,34 @@ public class GameManager : MonoBehaviour
         pauseButton.onClick.AddListener(PauseGame);
         playAgainButton.onClick.AddListener(PlayAgain);
         continueButton.onClick.AddListener(ContinueGame);
+        watchVideoButton.onClick.AddListener(WatchVideo);
     }
 
     private void Init()
     {
-        playModeCanvas.enabled = false;
+        playButton.gameObject.SetActive(true);
         continueButton.gameObject.SetActive(false);
         playAgainButton.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(true);
+        watchVideoButton.gameObject.SetActive(false);
+        playModeCanvas.enabled = false;
+    }
+
+    private void StartGame(bool enableMenuCanvas, bool enablePlaymodeCanvas, bool canMove)
+    {
+        menuCanvas.enabled = enableMenuCanvas;
+        playModeCanvas.enabled = enablePlaymodeCanvas;
+        OnCanMove?.Invoke(canMove);
     }
 
     private void PlayGame()
     {
         if (!energyManager.CheckIsEnoughEnergy()) { return; }
 
-        menuCanvas.enabled = false;
-        playModeCanvas.enabled = true;
-        OnCanMove?.Invoke(true);
+        StartGame(false, true, true);
+
+        playButton.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(true);
+        playAgainButton.gameObject.SetActive(true);
     }
 
     private void ExitGame()
@@ -54,9 +66,7 @@ public class GameManager : MonoBehaviour
 
     private void PauseGame()
     {
-        menuCanvas.enabled = true;
-        playAgainButton.gameObject.SetActive(true);
-        OnCanMove?.Invoke(false);
+        StartGame(true, false, false);
     }
 
     private void PlayAgain()
@@ -66,20 +76,25 @@ public class GameManager : MonoBehaviour
 
     private void ContinueGame()
     {
+        StartGame(false, true, true);
+    }
+
+    private void WatchVideo()
+    {
         AdManager.Instance.ShowAd();
-        continueButton.interactable = false;
+        watchVideoButton.interactable = false;
     }
 
     private void OnObstacleBumpedHandler()
     {
         PauseGame();
-        playButton.gameObject.SetActive(false);
-        continueButton.gameObject.SetActive(true);
+        continueButton.gameObject.SetActive(false);
+        watchVideoButton.gameObject.SetActive(true);
     }
 
     private void OnAdFinishedHandler()
     {
-        PlayGame();
+        ContinueGame();
     }
 
     private void OnDestroy()
