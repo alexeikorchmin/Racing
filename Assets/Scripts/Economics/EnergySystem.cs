@@ -10,54 +10,63 @@ public class EnergySystem : MonoBehaviour
 
     private int currentEnergy;
 
-    private void Start()
+    public bool CheckIsEnoughEnergy()
     {
-        CheckEnergy();
-    }
+        if (currentEnergy < 1) return false;
 
-    private void CheckEnergy()
-    {
-        currentEnergy = SavingSystem.GetEnergy(maxEnergy);
+        currentEnergy--;
 
         if (currentEnergy == 0)
         {
-            string energyReadyTimeString = SavingSystem.GetEnergyReadyTime();
-
-            if (energyReadyTimeString == string.Empty) { return; }
-
-            DateTime energyReadyTime = DateTime.Parse(energyReadyTimeString);
-
-            if (DateTime.Now > energyReadyTime)
-            {
-                currentEnergy = maxEnergy;
-                SavingSystem.SetEnergy(currentEnergy);
-            }
+            var energyWillBeReady = DateTime.Now.AddSeconds(energyRechargeTime);
+            SavingSystem.SetEnergyReadyTime(energyWillBeReady.ToString());
         }
 
-        currentEnergyText.text = $"Current Energy: {currentEnergy}";
+        SaveAndShowCurrentEnergy(currentEnergy);
+        return true;
     }
 
-    public bool CheckIsEnoughEnergy()
+    private void Start()
     {
-        if (currentEnergy < 1)
+        OnApplicationFocus(true);
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus) return;
+
+        CancelInvoke();
+
+        SaveAndShowCurrentEnergy(SavingSystem.GetEnergy(maxEnergy));
+
+        if (currentEnergy != 0) return;
+
+        string energyReadyTimeString = SavingSystem.GetEnergyReadyTime();
+
+        if (string.IsNullOrEmpty(energyReadyTimeString)) return;
+
+        var energyReadyTime = DateTime.Parse(energyReadyTimeString);
+
+        if (DateTime.Now > energyReadyTime)
         {
-            return false;
+            EnergyRecharged();
         }
         else
         {
-            currentEnergy--;
-
-            SavingSystem.SetEnergy(currentEnergy);
-
-            if (currentEnergy == 0)
-            {
-                DateTime energyReady = DateTime.Now.AddSeconds(energyRechargeTime);
-                SavingSystem.SetEnergyReadyTime(energyReady.ToString());
-            }
-
-            currentEnergyText.text = $"Current Energy: {currentEnergy}";
-
-            return true;
+            Invoke(nameof(EnergyRecharged), (energyReadyTime - DateTime.Now).Seconds);
         }
+    }
+
+    private void EnergyRecharged()
+    {
+        currentEnergy = maxEnergy;
+        SaveAndShowCurrentEnergy(currentEnergy);
+    }
+
+    private void SaveAndShowCurrentEnergy(int energy)
+    {
+        currentEnergy = energy;
+        SavingSystem.SetEnergy(energy);
+        currentEnergyText.text = $"Current Energy: {energy}";
     }
 }

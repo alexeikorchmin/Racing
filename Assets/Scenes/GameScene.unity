@@ -61292,7 +61292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnergyText: {fileID: 546610795}
   maxEnergy: 5
-  energyRechargeTime: 6
+  energyRechargeTime: 15
 --- !u!4 &1490193378
 Transform:
   m_ObjectHideFlags: 0
