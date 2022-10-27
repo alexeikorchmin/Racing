@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static BackgroundShift;
 
 public class GameManager : MonoBehaviour
 {
     public static event Action<bool> OnCanMove;
+    public static event Action<MenuSprites> OnMenuSpriteChange;
 
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
@@ -13,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button playAgainButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button watchVideoButton;
+    [SerializeField] private Button settingButton;
+    [SerializeField] private Button closeSettingsButton;
+    [SerializeField] private GameObject settingsPanel;
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
@@ -29,11 +34,14 @@ public class GameManager : MonoBehaviour
         pauseButton.onClick.AddListener(PauseGame);
         playAgainButton.onClick.AddListener(PlayAgain);
         continueButton.onClick.AddListener(ContinueGame);
+        settingButton.onClick.AddListener(delegate { OpenSettings(true); });
+        closeSettingsButton.onClick.AddListener(delegate { OpenSettings(false); });
         watchVideoButton.onClick.AddListener(WatchVideo);
     }
 
     private void Init()
     {
+        OnMenuSpriteChange?.Invoke(MenuSprites.MainMenu);
         playButton.gameObject.SetActive(true);
         continueButton.gameObject.SetActive(false);
         playAgainButton.gameObject.SetActive(false);
@@ -67,6 +75,7 @@ public class GameManager : MonoBehaviour
     private void PauseGame()
     {
         StartGame(true, false, false);
+        OnMenuSpriteChange?.Invoke(MenuSprites.PauseMenu);
     }
 
     private void PlayAgain()
@@ -77,6 +86,12 @@ public class GameManager : MonoBehaviour
     private void ContinueGame()
     {
         StartGame(false, true, true);
+    }
+
+    private void OpenSettings(bool isPanelOpen)
+    {
+        OnMenuSpriteChange?.Invoke(MenuSprites.SettingMenu);
+        settingsPanel.SetActive(isPanelOpen);
     }
 
     private void WatchVideo()
