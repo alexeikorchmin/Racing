@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
-    [SerializeField] private EnergySystem energyManager;
+    [SerializeField] private EnergySystem energyManager;    
 
     private void Awake()
     {

@@ -4,6 +4,7 @@ using TMPro;
 
 public class EnergySystem : MonoBehaviour
 {
+    [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
     [SerializeField] private TMP_Text currentEnergyText;
     [SerializeField] private int maxEnergy;
     [SerializeField] private int energyRechargeTime;
@@ -20,6 +21,10 @@ public class EnergySystem : MonoBehaviour
         {
             var energyWillBeReady = DateTime.Now.AddSeconds(energyRechargeTime);
             SavingSystem.SetEnergyReadyTime(energyWillBeReady.ToString());
+
+#if UNITY_ANDROID
+            androidNotificationHandler.ScheduleNotification(energyWillBeReady);
+#endif
         }
 
         SaveAndShowCurrentEnergy(currentEnergy);
