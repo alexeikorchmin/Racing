@@ -9,8 +9,8 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
 #if UNITY_ANDROID
     private string gameId = "4983267";
-//#elif Unity_IOS
-//  private string gameId = "4983266";
+#elif Unity_IOS
+    private string gameId = "4983266";
 #endif
 
     public void ShowAd()

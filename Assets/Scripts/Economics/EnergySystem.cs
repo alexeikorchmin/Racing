@@ -5,6 +5,7 @@ using TMPro;
 public class EnergySystem : MonoBehaviour
 {
     [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
+    [SerializeField] private IOSNotificationHandler iOSNotificationHandler;
     [SerializeField] private TMP_Text currentEnergyText;
     [SerializeField] private int maxEnergy;
     [SerializeField] private int energyRechargeTime;
@@ -24,6 +25,8 @@ public class EnergySystem : MonoBehaviour
 
 #if UNITY_ANDROID
             androidNotificationHandler.ScheduleNotification(energyWillBeReady);
+#elif UNITY_IOS
+            IOSNotificationHandler.ScheduleNotification(energyRechargeTime);
 #endif
         }
 

@@ -46819,6 +46819,7 @@ GameObject:
   - component: {fileID: 1081063924}
   - component: {fileID: 1081063925}
   - component: {fileID: 1081063926}
+  - component: {fileID: 1081063927}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46874,6 +46875,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c761be9781745b42877b17a516ef829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1081063927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081063923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7ad112aab47cf40a963cb8a99c01d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1084659949
@@ -61434,6 +61447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   androidNotificationHandler: {fileID: 1081063926}
+  iOSNotificationHandler: {fileID: 1081063927}
   currentEnergyText: {fileID: 546610795}
   maxEnergy: 5
   energyRechargeTime: 60
