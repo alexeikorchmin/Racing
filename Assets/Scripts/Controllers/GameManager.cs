@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
     {
         AdManager.Instance.ShowAd();
         watchVideoButton.interactable = false;
+        continueButton.gameObject.SetActive(true);
     }
 
     private void OnObstacleBumpedHandler()
