@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
 
     private void WatchVideo()
     {
+        Debug.Log("Video Played");
         AdManager.Instance.ShowAd();
         watchVideoButton.interactable = false;
     }
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
 
     private void OnAdFinishedHandler()
     {
+        Debug.Log("Video Finished");
         ContinueGame();
         continueButton.gameObject.SetActive(true);
     }

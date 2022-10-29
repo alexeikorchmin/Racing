@@ -67,7 +67,7 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
             DontDestroyOnLoad(gameObject);
 
             Advertisement.AddListener(this);
-            Advertisement.Initialize(gameId);
+            Advertisement.Initialize(gameId, true);
         }
     }
 }
