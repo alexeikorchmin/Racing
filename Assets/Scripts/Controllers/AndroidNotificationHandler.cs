@@ -9,7 +9,7 @@ public class AndroidNotificationHandler : MonoBehaviour
 #if UNITY_ANDROID
 
     private const string channelId = "NOTIFICATION_CHANNEL";
-    
+
     public void ScheduleNotification(DateTime dateTime)
     {
         AndroidNotificationChannel notificationChannel = new AndroidNotificationChannel

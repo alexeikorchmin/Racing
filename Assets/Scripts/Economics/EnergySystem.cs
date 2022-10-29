@@ -25,8 +25,8 @@ public class EnergySystem : MonoBehaviour
 
 #if UNITY_ANDROID
             androidNotificationHandler.ScheduleNotification(energyWillBeReady);
-#elif UNITY_IOS
-            IOSNotificationHandler.ScheduleNotification(energyRechargeTime);
+            //            //#elif UNITY_IOS
+            //            //IOSNotificationHandler.ScheduleNotification(energyRechargeTime);
 #endif
         }
 
