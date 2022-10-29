@@ -61,9 +61,7 @@ public class GameManager : MonoBehaviour
         if (!energyManager.CheckIsEnoughEnergy()) { return; }
 
         StartGame(false, true, true);
-
         playButton.gameObject.SetActive(false);
-        continueButton.gameObject.SetActive(true);
         playAgainButton.gameObject.SetActive(true);
     }
 
@@ -75,6 +73,7 @@ public class GameManager : MonoBehaviour
     private void PauseGame()
     {
         StartGame(true, false, false);
+        continueButton.gameObject.SetActive(true);
         OnMenuSpriteChange?.Invoke(MenuSprites.PauseMenu);
     }
 
@@ -98,7 +97,6 @@ public class GameManager : MonoBehaviour
     {
         AdManager.Instance.ShowAd();
         watchVideoButton.interactable = false;
-        continueButton.gameObject.SetActive(true);
     }
 
     private void OnObstacleBumpedHandler()
@@ -111,6 +109,7 @@ public class GameManager : MonoBehaviour
     private void OnAdFinishedHandler()
     {
         ContinueGame();
+        continueButton.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
