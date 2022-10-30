@@ -2,17 +2,36 @@ using UnityEngine;
 
 public class SoundManagerLocalButtons : SoundManagerLocal
 {
-    [SerializeField] private AudioClip audioClip;
-
+    private float soundReduceMultiplier = 5f;
     private float timer = 0f;
     private bool isButtonPressed = false;
-
-    protected override void OnCanMoveHandler(bool flag) { }
 
     protected override void Awake()
     {
         base.Awake();
         SteerController.OnSteerButtonPressed += OnSteerButtonPressedHandler;
+        audioSource.volume = 0.2f;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        SteerController.OnSteerButtonPressed -= OnSteerButtonPressedHandler;
+    }
+
+    protected override void OnSoundValueChangedHandler(float soundValue)
+    {
+        audioSource.volume = soundValue / soundReduceMultiplier;
+    }
+
+    protected override void OnCanMoveHandler(bool canMove)
+    {
+        if (audioSource == null) { return; }
+
+        if (!canMove)
+            audioSource.mute = true;
+        else
+            audioSource.mute = false;
     }
 
     private void Update()
@@ -22,7 +41,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
             timer += Time.deltaTime;
 
             if (timer > 1f)
-                audioSource.PlayOneShot(audioClip);
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 
@@ -32,10 +51,5 @@ public class SoundManagerLocalButtons : SoundManagerLocal
 
         if (!flag)
             timer = 0f;
-    }
-
-    private void OnDestroy()
-    {
-        SteerController.OnSteerButtonPressed -= OnSteerButtonPressedHandler;
     }
 }
