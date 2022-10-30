@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6807696541368766176}
   - component: {fileID: 8608741652148026135}
   - component: {fileID: 8886432367809766755}
-  - component: {fileID: 3363545200380208287}
   m_Layer: 0
   m_Name: MenuButton
   m_TagString: Untagged
@@ -122,25 +121,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!95 &3363545200380208287
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316473505923839759}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3fec6adb8e5e484458143410925f8339, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5710240858608676861
 GameObject:
   m_ObjectHideFlags: 0

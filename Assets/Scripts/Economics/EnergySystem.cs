@@ -56,13 +56,9 @@ public class EnergySystem : MonoBehaviour
         var energyReadyTime = DateTime.Parse(energyReadyTimeString);
 
         if (DateTime.Now > energyReadyTime)
-        {
             EnergyRecharged();
-        }
         else
-        {
             Invoke(nameof(EnergyRecharged), (energyReadyTime - DateTime.Now).Seconds);
-        }
     }
 
     private void EnergyRecharged()

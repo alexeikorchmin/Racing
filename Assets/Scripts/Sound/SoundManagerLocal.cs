@@ -28,13 +28,9 @@ public class SoundManagerLocal : MonoBehaviour
     protected virtual void OnCanMoveHandler(bool flag)
     {
         if (!flag)
-        {
             audioSource.Pause();
-        }
         else
-        {
             audioSource.Play();
-        }
     }
 
     private void OnDestroy()

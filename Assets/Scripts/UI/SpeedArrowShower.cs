@@ -23,13 +23,9 @@ public class SpeedArrowShower : MonoBehaviour
     private void ShowSpeedArrow(bool flag)
     {
         if (flag)
-        {
             transform.rotation = startRotation;
-        }
         else
-        {
             transform.Rotate(0f, 0f, 180f);
-        }
 
         StartCoroutine(ArrowScaling());
     }

@@ -46851,6 +46851,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68cda8692a3456459abecfa452fb7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adManager: {fileID: 553829832}
+  energyManager: {fileID: 1490193377}
   playButton: {fileID: 1967603379}
   exitButton: {fileID: 1073509665}
   pauseButton: {fileID: 1828197047}
@@ -46862,7 +46864,6 @@ MonoBehaviour:
   settingsPanel: {fileID: 1139768569}
   menuCanvas: {fileID: 855946301}
   playModeCanvas: {fileID: 262584173}
-  energyManager: {fileID: 1490193377}
 --- !u!114 &1081063926
 MonoBehaviour:
   m_ObjectHideFlags: 0

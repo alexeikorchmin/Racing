@@ -16,12 +16,8 @@ public class DistanceFromCamera : MonoBehaviour
     private void CheckTheDistance()
     {
         if (Vector3.Distance(transform.position, cameraObject.transform.position) <= distance)
-        {
             OnCloseDistance?.Invoke(true);
-        }
         else
-        {
             OnCloseDistance?.Invoke(false);
-        }
-    }    
+    } 
 }

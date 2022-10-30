@@ -29,13 +29,9 @@ public class ReduceVolumeOnCloseDistance : MonoBehaviour
     private void OnCloseDistanceHandler(bool flag)
     {
         if (flag)
-        {
             audioSourceToReduce.volume = reducedVolume;
-        }
         else
-        {
             audioSourceToReduce.volume = NonReducedVolume;
-        }
     }
 
     private void OnDestroy()

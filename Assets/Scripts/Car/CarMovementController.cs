@@ -28,9 +28,7 @@ public class CarMovementController : MonoBehaviour
         OnSpeedValue?.Invoke(speed);
 
         if (canMove)
-        {
             MoveCar();
-        }
     }
 
     private void MoveCar()
@@ -45,9 +43,7 @@ public class CarMovementController : MonoBehaviour
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
         if (isSteerButtonPressed)
-        {
             transform.Rotate(0f, steerDirectionValue * steerTurnSpeed * Time.deltaTime, 0f);
-        }
     }
 
     public void OnSteerButtonPressedHandler(bool isButtonPressed, float steerDirection)

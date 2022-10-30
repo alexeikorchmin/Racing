@@ -21,9 +21,7 @@ public class ScoreSystem : MonoBehaviour
     private void Update()
     {
         if (gameIsPlayed)
-        {
             ShowScoreAndSpeed();
-        }
     }
 
     private void ShowScoreAndSpeed()
@@ -48,9 +46,7 @@ public class ScoreSystem : MonoBehaviour
         gameIsPlayed = canMove;
 
         if (!canMove)
-        {
             ShowCurrentScoreResult();
-        }
     }
 
     private void OnDestroy()
@@ -62,8 +58,6 @@ public class ScoreSystem : MonoBehaviour
         int currentBestScore = SavingSystem.GetBestScore();
 
         if (currentScorePoints > currentBestScore)
-        {
             SavingSystem.SetBestScore(Mathf.FloorToInt(currentScorePoints));
-        }
     }
 }

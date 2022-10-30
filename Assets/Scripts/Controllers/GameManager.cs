@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public static event Action<bool> OnCanMove;
     public static event Action<MenuSprites> OnMenuSpriteChange;
 
+    [SerializeField] private AdManager adManager;    
+    [SerializeField] private EnergySystem energyManager;
+    
     [SerializeField] private Button playButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button pauseButton;
@@ -21,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Canvas menuCanvas;
     [SerializeField] private Canvas playModeCanvas;
-    [SerializeField] private EnergySystem energyManager;    
 
     private void Awake()
     {
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
     private void WatchVideo()
     {
         Debug.Log("Video Played");
-        AdManager.Instance.ShowAd();
+        adManager.ShowAd();
         watchVideoButton.interactable = false;
     }
 

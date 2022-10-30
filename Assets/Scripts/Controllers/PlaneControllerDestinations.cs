@@ -26,21 +26,7 @@ public class PlaneControllerDestinations : MonoBehaviour
             planeProp.transform.Rotate(0f, 0f, +50f);
 
             FlyToDestination();
-
             SetNextDestinationGoal();
-
-            //if (transform.position == destinationGoals[currentGoalIndex].position)
-            //{
-            //    elapsedTime = 0;
-            //    currentGoalIndex = ++currentGoalIndex;
-
-            //    SetStartingPosition();
-
-            //    if (currentGoalIndex == destinationGoals.Length)
-            //    {
-            //        currentGoalIndex = 0;
-            //    }
-            //}
         }
     }
 
@@ -65,9 +51,7 @@ public class PlaneControllerDestinations : MonoBehaviour
             SetStartingPosition();
 
             if (currentGoalIndex == destinationGoals.Length)
-            {
                 currentGoalIndex = 0;
-            }
         }
     }
 

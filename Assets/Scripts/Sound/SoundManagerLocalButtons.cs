@@ -22,9 +22,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
             timer += Time.deltaTime;
 
             if (timer > 1f)
-            {
                 audioSource.PlayOneShot(audioClip);
-            }
         }
     }
 
@@ -33,9 +31,7 @@ public class SoundManagerLocalButtons : SoundManagerLocal
         isButtonPressed = flag;
 
         if (!flag)
-        {
             timer = 0f;
-        }
     }
 
     private void OnDestroy()
