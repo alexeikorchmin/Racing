@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundManagerLocalButtons : SoundManagerLocal
+public class TiresSoundHandler : SoundManagerLocal
 {
     private float soundReduceMultiplier = 5f;
     private float timer = 0f;
