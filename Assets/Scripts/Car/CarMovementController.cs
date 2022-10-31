@@ -8,8 +8,8 @@ public class CarMovementController : MonoBehaviour
     public static Action<bool> OnSpeedIncreased;
     public static Action OnObstacleBumped;
 
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float acceleration = 2f;
+    [SerializeField] private float speed = 0f;
+    [SerializeField] private float acceleration = 1f;
     [SerializeField] private float maxSpeed = 15f;
     [SerializeField] private float steerTurnSpeed = 50f;
     [SerializeField] private float steerDirectionValue = 1f;
