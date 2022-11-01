@@ -18,6 +18,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void ShowAd()
     {
+        Advertisement.Load(rewardedPlacementId, this);
+        Debug.Log("ShowAd - Advertisement.Load OK");
         Advertisement.Show(rewardedPlacementId, this);
     }
 
@@ -36,37 +38,37 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads Initialization Complete");
+        Debug.Log("On Unity Ads Initialization OK");
     }
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.Log($"Unity Ads Initialization Failed {error} - {message}");
+        Debug.Log($"On Unity Ads Initialization FAIL {error} - {message}");
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        Debug.Log($"Unity Ads Loaded: {placementId}");
+        Debug.Log($"On Unity Ads Loaded OK: {placementId}");
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        Debug.Log($"Unity Ads Load Failed: {placementId}: {error} - {message}");
+        Debug.Log($"On Unity Ads Load FAIL: {placementId}: {error} - {message}");
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        Debug.Log($"Unity Ads Show Failed: {placementId}: {error} - {message}");
+        Debug.Log($"On Unity Ads Show FAIL: {placementId}: {error} - {message}");
     }
 
     public void OnUnityAdsShowStart(string placementId)
     {
-        Debug.Log($"Unity Ads Show Start: {placementId}");
+        Debug.Log($"On Unity Ads Show Start OK: {placementId}");
     }
 
     public void OnUnityAdsShowClick(string placementId)
     {
-        Debug.Log($"Unity Ads Show Click: {placementId}");
+        Debug.Log($"On Unity Ads Show Click OK: {placementId}");
     }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
@@ -82,7 +84,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
                 Debug.Log("Ad SKIPPED");
                 break;
             case UnityAdsShowCompletionState.UNKNOWN:
-                Debug.Log("Ad Failed");
+                Debug.Log("Ad UNKNOWN");
                 break;
         }
     }

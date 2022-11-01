@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlaneControllerDestinations : MonoBehaviour
+public class PlaneDestinationsHandler : MonoBehaviour
 {
     [SerializeField] private Transform[] destinationGoals;
     [SerializeField] private GameObject planeProp;

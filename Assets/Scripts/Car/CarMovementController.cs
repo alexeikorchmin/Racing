@@ -63,6 +63,7 @@ public class CarMovementController : MonoBehaviour
         {
             case "Obstacle":
                 OnObstacleBumped?.Invoke();
+                SoundManagerGlobal.Instance.PlayCarCrashSound();
                 break;
             case "SpeedIncrease":
                 OnSpeedIncreased?.Invoke(true);

@@ -1,42 +1,34 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ReduceVolumeOnCloseDistance : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSourceToReduce;
+    [SerializeField] private List<AudioSource> audioSourcesToReduce;
+    [SerializeField] private GameObject cameraObject;
+    [SerializeField] private float distance = 100f;
 
-    private float NonReducedVolume;
-    private float reducedVolume;
+    private bool isClose;
 
-    private void Awake()
+    private void Update()
     {
-        DistanceFromCamera.OnCloseDistance += OnCloseDistanceHandler;
-        SoundManagerGlobal.OnSoundValueChanged += OnSoundValueChangedHandler;
-        Init();
+        CheckTheDistance();
     }
 
-    private void Init()
+    private void CheckTheDistance()
     {
-        NonReducedVolume = audioSourceToReduce.volume;
-        reducedVolume = NonReducedVolume / 5;
-    }
+        if (Vector3.Distance(transform.position, cameraObject.transform.position) <= distance)
+        {
+            if (isClose) { return; }
 
-    private void OnSoundValueChangedHandler(float soundValue)
-    {
-        NonReducedVolume = soundValue;
-        reducedVolume = NonReducedVolume / 5;
-    }
-
-    private void OnCloseDistanceHandler(bool flag)
-    {
-        if (flag)
-            audioSourceToReduce.volume = reducedVolume;
+            isClose = true;
+            SoundManagerGlobal.Instance.ReduceVolumeOnCloseDistance(audioSourcesToReduce, true);
+        }
         else
-            audioSourceToReduce.volume = NonReducedVolume;
-    }
+        {
+            if (!isClose) { return; }
 
-    private void OnDestroy()
-    {
-        DistanceFromCamera.OnCloseDistance -= OnCloseDistanceHandler;
-        SoundManagerGlobal.OnSoundValueChanged -= OnSoundValueChangedHandler;
+            isClose = false;
+            SoundManagerGlobal.Instance.ReduceVolumeOnCloseDistance(audioSourcesToReduce, false);
+        }
     }
 }
